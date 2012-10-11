@@ -120,7 +120,7 @@ package com.aA.Game.Console
 			}
 		}
 		
-		private function showCommands(params:Array):void {
+		private function showCommands(params:Array = null):void {
 			var print:String = "";
 			
 			var alphabetical:Array = new Array();
@@ -169,7 +169,16 @@ package com.aA.Game.Console
 				// dispatch
 				dispatchEvent(new ConsoleEvent(ConsoleEvent.DISPATCH_COMMAND, stringSplit, commandName));
 			} else {
-				commands[commandName].apply(null, [stringSplit]);
+				var output:String = "";
+				if (stringSplit == null) {
+					output = commands[commandName].apply(null, []);
+				} else {
+					output= commands[commandName].apply(null, stringSplit);
+				}
+				
+				if (output != null && output != "") {
+					addLine("\t" + output);
+				}
 			}
 		}
 		
