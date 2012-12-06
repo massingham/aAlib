@@ -23,12 +23,23 @@ package com.aA.Game.Camera
 		private var _targetX:int;
 		private var _targetY:int;
 		
+		private var _zoom:Number;
+		
 		public var boundingDistance:int = 0;
 		
 		public function Camera2D(e:SingletonEnforcer) 
 		{
 			_x = 0;
 			_y = 0;
+			_zoom = 1;
+		}
+		
+		public function get x():int {
+			return _x;	
+		}
+		
+		public function get y():int {
+			return _y;	
 		}
 		
 		public static function getInstance():Camera2D {
@@ -36,6 +47,10 @@ package com.aA.Game.Camera
 				_instance = new Camera2D(new SingletonEnforcer());
 			}
 			return _instance;
+		}
+		
+		public function setWorldDimensions(rect:Rectangle):void {
+			worldBounds = rect;
 		}
 		
 		public function setViewportDimensions(rect:Rectangle):void {
@@ -47,6 +62,10 @@ package com.aA.Game.Camera
 				_targetX = _x + (viewport.width << 1);
 				_targetY = _y + (viewport.height << 1);
 			}
+		}
+		
+		public function setZoom(val:Number):void {
+			_zoom = val;
 		}
 		
 		public function moveTo(p:Point):void {
