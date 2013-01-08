@@ -1,7 +1,9 @@
 package com.aA.Game.Textures 
 {
+	import feathers.system.DeviceCapabilities;
 	import flash.display.Bitmap;
 	import flash.utils.Dictionary;
+	import starling.core.Starling;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	/**
@@ -18,6 +20,9 @@ package com.aA.Game.Textures
 		
 		private static var AtlasTexture:Class;
 		private static var AtlasXML:Class;
+		
+		public static var scaledDPI:int;
+		public static var scale:Number;
 		
 		public static function setTextureAndXML(texture:Class, xml:Class):void {
 			AtlasTexture = texture;
@@ -40,7 +45,15 @@ package com.aA.Game.Textures
 				textures[name] = Texture.fromBitmap(bitmap);
 			}
 			return textures[name];
-		}		
+		}
+		
+		public static function setDPI():void {
+			scaledDPI = DeviceCapabilities.dpi / Starling.contentScaleFactor;
+			
+			trace(DeviceCapabilities.dpi);
+			trace(Starling.contentScaleFactor);
+			trace(scaledDPI);
+		}
 	}
 
 }

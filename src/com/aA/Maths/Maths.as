@@ -76,8 +76,41 @@ package com.aA.Maths
 		
 		public static function getRandomNumber(minNumber:Number, maxNumber:Number, decimalPlaces:int = 0):Number {
 			var num:Number = Math.random() * (maxNumber - minNumber);
-			num += minNumber;
-			return Maths.roundTo(num, decimalPlaces);
+				num += minNumber;
+				return Maths.roundTo(num, decimalPlaces);
+			}
+			
+			public static function checkIntersection(p1:Point, p2:Point, p3:Point, p4:Point):Point {
+				var nx:Number;
+			var ny:Number;
+			var dn:Number;
+			
+			var x4_x3:Number = p4.x - p3.x;
+			var pre2:Number = p4.y - p3.y;
+			var pre3:Number = p2.x - p1.x;
+			var pre4:Number = p2.y - p1.y;
+			var pre5:Number = p1.y - p3.y;
+			var pre6:Number = p1.x - p3.x;
+			
+			var ip:Point = new Point();
+			
+			nx = x4_x3 * pre5 - pre2 * pre6;
+			ny = pre3 * pre5 - pre4 * pre6;
+			dn = pre2 * pre3 - x4_x3 * pre4;
+			nx /= dn;
+			ny /= dn;
+			// has intersection
+			if(nx>= 0 && nx <= 1 && ny>= 0 && ny <= 1){
+				ny = p1.y + nx * pre4;
+				nx = p1.x + nx * pre3;
+				ip.x = nx;
+				ip.y = ny;
+			}else{
+				// no intersection
+				// ip.x = ip.y = -1000;
+				ip = null;
+			}
+			return ip;
 		}
 	}
 
